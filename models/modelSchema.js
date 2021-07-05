@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
-// var ObjectId = require('mongodb').ObjectID;
 
 const dataSchema = new mongoose.Schema({
-  userId: Number,
+  userId: Number,   // for testing 
   workTime: [
     {
-      // id: {
-      //   type: Number,
-      //   default: Date.now(),
-      // },
       days: [String],
       slots: [
         {
