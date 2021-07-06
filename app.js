@@ -2,8 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const port = process.env.PORT || 8000
 
-const db = process.env.DATABASE;
+
+if(process.env.NODE_ENV=="production"){
+  const db = process.env.MONGOURL;
+}else{
+  const db = process.env.DATABASE;
+}
 
 //routes
 const blockUnblock = require("./routes/blockUnblock");
@@ -27,20 +33,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // FOR TESTING
-// app.use((req, res,next) => {
-//   try {
-//     req.userId = 3;
-//     next();
-//     // res.status(200).send("Success");
-//   } catch (err) {
-//     // res.status(400).send({ err });
-//   }
-// });
+app.use((req, res, next) => {
+  req.userId = 3;
+  next();
+});
 
 app.use("/api/blockUnblock", blockUnblock);
 app.use("/api/restrictions", restrictions);
 app.use("/api/schedule", schedule);
 
-app.listen(8000, () => {
-  console.log(`Server running on port 8000 🔥`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
