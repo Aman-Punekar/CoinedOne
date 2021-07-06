@@ -6,9 +6,9 @@ const port = process.env.PORT || 8000
 
 
 if(process.env.NODE_ENV=="production"){
-  const db = process.env.MONGOURL;
+  db = process.env.MONGOURL;
 }else{
-  const db = process.env.DATABASE;
+  db = process.env.DATABASE;
 }
 
 //routes
